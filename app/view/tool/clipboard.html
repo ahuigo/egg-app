@@ -1,0 +1,70 @@
+{% extends "layout.html" %} {% block app %}
+<script src="https://cdn.bootcss.com/spark-md5/3.0.0/spark-md5.min.js"></script>
+<script src="/public/js/upload.js"></script>
+<div id="app" style="width:80%; margin:10 auto; padding:10px; border:3px solid #ccc">
+    <div class="field">
+        <label class="label">粘贴板</label>
+        <div class="control">
+            <textarea class="textarea" v-model="content">content</textarea>
+        </div>
+        <label class="label">WARN</label>
+        <label class="file-label file is-info">
+            <input class="file-input" type="file" name="resume">
+            <span class="file-cta">
+                <span class="file-icon">
+                    <i class="fas fa-upload"></i>
+                </span>
+                <span class="file-label">
+                    Primary file…
+                </span>
+            </span>
+        </label>
+    </div>
+    <div class="is-grouped">
+        {% raw %}{%endraw%}
+        <button class="button is-primary" v-on:click.prevent="save">保存</button>
+        <button class="button is-light" v-on:click.prevent="add_sub">Reset</button>
+    </div>
+</div>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            content: '',
+        },
+        created() {
+            var that = this
+            /*
+            fetch('/paste?get&', {
+                credentials: 'include'
+            }).then(response => response.json()).then(json => {
+                console.log(this)
+                console.log(json)
+                if (json[0] == 0) {
+                    that.content = json[1]
+                    that.msg = ('init')
+                } else {
+                    alert(json[1])
+                }
+            }).catch(e => alert(e))
+            */
+        },
+        methods: {
+            'save': function (e) {
+                var form_data = new FormData
+                form_data['content'] = this.content
+                fetch('/paste?set&', {
+                    credentials: 'include',
+                    method: 'POST',
+                    data: form_data,
+                }).then(response => response.json()).then(json => {
+                    if (json[0] == 0) {
+                        that.msg = ('succ')
+                    } else {
+                        alert(json[1])
+                    }
+                }).catch(e => alert(e))
+            }
+        }
+    })
+</script> {% endblock %}

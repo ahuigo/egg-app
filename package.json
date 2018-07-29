@@ -1,0 +1,23 @@
+{
+  "name": "egg-example-ahui",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "egg-bin test",
+    "dev": "egg-bin dev",
+    "debug": "egg-bin debug"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "egg": "^2.9.1",
+    "egg-onerror": "^2.1.0",
+    "egg-view-nunjucks": "^2.2.0",
+    "stream-wormhole": "^1.0.4"
+  },
+  "devDependencies": {
+    "egg-bin": "^4.7.1",
+    "egg-mock": "^3.17.3"
+  }
+}
