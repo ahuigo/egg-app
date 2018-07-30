@@ -1,4 +1,6 @@
 // app/core/base_controller.js
+const tmp = require('tmp')
+const fs = require('fs')
 const app = require('egg');
 
 module.exports =
@@ -14,9 +16,17 @@ module.exports =
       this.ctx.throw(400, msg);
     }
 
+    buildURLQuery(obj){
+      return Object.entries(obj)
+            .map(pair => pair.map(encodeURIComponent).join('='))
+            .join('&');
+    }
+
+
     async multipart() {
       const ctx = this.ctx
-      const filesStream = [];
+      const files = [];
+      ctx.files = files
       let fields, part;
       if (this.ctx.get('Content-Type').startsWith('multipart/')) {
         try {
@@ -28,9 +38,14 @@ module.exports =
           while ((part = await parts()) != null) {
             if (part.length) {
             } else if (part.filename) {
-              filesStream.push(part)
+              const tmpFile = tmp.fileSync({prefix: 'eggjs-'})
+              const ws = fs.createWriteStream(null, {fd:tmpFile.fd})
+              part.pipe(ws)
+              part.path = tmpFile.name
+              part.fd = tmpFile.fd
+              files.push(part)
               //let result = await ctx.oss.put('egg-multipart-test/' + part.filename, part);
-              await sendToWormhole(part);
+              //await sendToWormhole(part);
             }
           }
           fields = parts.field
@@ -39,6 +54,6 @@ module.exports =
           throw err;
         }
       }
-      return [filesStream, fields];
+      return [files, fields];
     }
   }

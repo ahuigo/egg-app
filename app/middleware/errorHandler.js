@@ -1,11 +1,22 @@
 // options === app.config.errorHandler
+const fs = require('fs')
+function clean_tmp(app, ctx) {
+  if (ctx.files && ctx.files.length) {
+    for(let file of ctx.files){
+      if(file.path && fs.existsSync(file.path)){
+        fs.unlinkSync(file.path)
+      }
+    }
+  }
+}
 module.exports = (options, app) => {
   return async function errorHandler(ctx, next) {
     try {
+      console.log(ctx.request.path)
       await next();
     } catch (err) {
       // x-requested-with !== 'XMLHttpRequest'
-      if (!ctx.get('x-requested-with') ) {
+      if (!ctx.get('x-requested-with')) {
         throw err
       }
       // 所有的异常都在 app 上触发一个 error 事件，框架会记录一条错误日志
@@ -24,5 +35,6 @@ module.exports = (options, app) => {
       }
       ctx.status = status;
     }
+    clean_tmp(app, ctx)
   };
 };

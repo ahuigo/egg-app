@@ -11,15 +11,6 @@ class ToolController extends Controller {
         { id: 2, title: 'this is news 2', url: '/news/2' }
       ]
     };
-    let fs = require('fs')
-    let ctx = this.ctx
-    fs.readFile('.gitignore', 'utf-8', function (err, data) {
-        if (err) {
-            console.log(err);
-        } else {
-            console.log(data, ctx.root);
-        }
-    });
     await this.ctx.render('tool/clipboard.html', dataList);
   }
 }

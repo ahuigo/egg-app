@@ -14,7 +14,8 @@
     "egg": "^2.9.1",
     "egg-onerror": "^2.1.0",
     "egg-view-nunjucks": "^2.2.0",
-    "stream-wormhole": "^1.0.4"
+    "stream-wormhole": "^1.0.4",
+    "tmp": "0.0.33"
   },
   "devDependencies": {
     "egg-bin": "^4.7.1",
