@@ -30,37 +30,42 @@
     var tmpBlob = new File(['hello'], 'a.png', {type:'image/png'});
 
 //new Upload('/api/clipboard/uploadFile?a=1', tmpBlob, 'ahuixxx.png', 1).success(d=>console.info(d)).fail(d=>console.error(d))
+const alert = console.log
     var vm = new Vue({
         el: '#app',
         data: {
-            content: '',
+            content: 'test',
         },
         created() {
             var that = this
-            /*
-            fetch('/paste?get&', {
+            fetch('/api/clipboard?', {
                 credentials: 'include'
             }).then(response => response.json()).then(json => {
-                console.log(this)
-                console.log(json)
-                if (json[0] == 0) {
-                    that.content = json[1]
+                if (json.content) {
+                    that.content = json.content
                     that.msg = ('init')
                 } else {
                     alert(json[1])
                 }
             }).catch(e => alert(e))
-            */
         },
         methods: {
             'save': function (e) {
-                var form_data = new FormData
-                form_data['content'] = this.content
+                const vm = this
+                //var form_data = new FormData(this.data)
+                //form_data['content'] = this.content
+                console.log({content: vm.content})
                 fetch('/api/clipboard', {
                     credentials: 'include',
                     method: 'POST',
-                    data: form_data,
-                }).then(response => response.json()).then(json => {
+                    headers:{
+                        'content-type':'application/json',
+                        'X-requested-with': 'XMLHttpRequest',
+                        "Accept": "application/json", 
+                    },
+                    body: JSON.stringify({content: vm.content}),
+                })
+                .then(response => response.json()).then(json => {
                     if (json[0] == 0) {
                         that.msg = ('succ')
                     } else {

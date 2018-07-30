@@ -12,7 +12,7 @@ function clean_tmp(app, ctx) {
 module.exports = (options, app) => {
   return async function errorHandler(ctx, next) {
     try {
-      console.log(ctx.request.path)
+      console.log('errorHandler', __line, ctx.request.path)
       await next();
     } catch (err) {
       // x-requested-with !== 'XMLHttpRequest'

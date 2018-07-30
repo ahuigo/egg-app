@@ -60,26 +60,31 @@ module.exports =
       //this.ctx.app.rest([res, this.ctx.get('content-type')])
       //this.ctx.rest([res, this.ctx.get('accept')])
     }
+    async index() {
+      let id = this.ctx.request.query.id || '0';
+      let ctx = this.ctx
+      let clipPath = 'tmp/clip-' + id;
+      var res = fs.readFileSync(clipPath, 'utf8')
+
+      //this.ctx.app.rest([res, this.ctx.get('content-type')])
+      this.rest({content:res})
+    }
     /**
      * POST
      */
-    async new() {
+    async create() {
       let id = this.ctx.request.query.id || '0';
-      //let fs = require('fs');
+      let ctx = this.ctx
       let clipPath = 'tmp/clip-' + id;
-      var res = 'null';
-      if (fs.existsSync(clipPath)) {
-        fs.readFile(clipPath, 'utf-8', function (err, data) {
-          if (err) {
-            console.log(err);
-          } else {
-            res = data;
-          }
-        });
+      var res = 'ok';
+      if(ctx.request.body.content)
+        fs.writeFileSync(clipPath, ctx.request.body.content)
+      else{
+        res = 'require content'
+        this.throw(res)
       }
-      //await ctx.service.news.list(this.ctx.query.page);
 
       //this.ctx.app.rest([res, this.ctx.get('content-type')])
-      this.ctx.rest([res, this.ctx.get('accept')])
+      this.rest({content:res})
     }
   }
