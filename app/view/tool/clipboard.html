@@ -22,7 +22,7 @@
     </div>
     <div class="is-grouped">
         {% raw %}{%endraw%}
-        <button class="button is-primary" v-on:click.prevent="save">保存</button>
+        <button class="button is-primary" v-on:click.prevent="create">保存</button>
         <button class="button is-light" v-on:click.prevent="add_sub">Reset</button>
     </div>
 </div>
@@ -38,9 +38,11 @@ const alert = console.log
         },
         created() {
             var that = this
-            fetch('/api/clipboard?', {
+            var id = location.hash.slice(1)
+            fetch('/api/clipboard/'+id, {
                 credentials: 'include'
-            }).then(response => response.json()).then(json => {
+            })
+            .then(response => response.json()).then(json => {
                 if (json.content) {
                     that.content = json.content
                     that.msg = ('init')
@@ -50,7 +52,7 @@ const alert = console.log
             }).catch(e => alert(e))
         },
         methods: {
-            'save': function (e) {
+            'create': function (e) {
                 const vm = this
                 //var form_data = new FormData(this.data)
                 //form_data['content'] = this.content
@@ -66,11 +68,7 @@ const alert = console.log
                     body: JSON.stringify({content: vm.content}),
                 })
                 .then(response => response.json()).then(json => {
-                    if (json[0] == 0) {
-                        that.msg = ('succ')
-                    } else {
-                        alert(json[1])
-                    }
+                    location.hash='#'+json.id
                 }).catch(e => alert(e))
             }
         }

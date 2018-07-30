@@ -61,30 +61,57 @@ module.exports =
       //this.ctx.rest([res, this.ctx.get('accept')])
     }
     async index() {
-      let id = this.ctx.request.query.id || '0';
+      await this.show()
+    }
+    async show() {
+      let id = this.ctx.params.id ? +this.ctx.params.id : undefined;
       let ctx = this.ctx
-      let clipPath = 'tmp/clip-' + id;
+      let [clipPath] = this.getClipPath(id);
       var res = fs.readFileSync(clipPath, 'utf8')
 
       //this.ctx.app.rest([res, this.ctx.get('content-type')])
-      this.rest({content:res})
+      this.rest({ content: res, path:clipPath })
     }
+
     /**
      * POST
      */
     async create() {
-      let id = this.ctx.request.query.id || '0';
       let ctx = this.ctx
-      let clipPath = 'tmp/clip-' + id;
+      let [clipPath, id] = this.getClipPath(null, true)
       var res = 'ok';
-      if(ctx.request.body.content)
+      if (ctx.request.body.content)
         fs.writeFileSync(clipPath, ctx.request.body.content)
-      else{
+      else {
         res = 'require content'
         this.throw(res)
       }
 
       //this.ctx.app.rest([res, this.ctx.get('content-type')])
-      this.rest({content:res})
+      this.rest({ content: res , id})
+    }
+
+    /**
+     * 
+     * @param {Number} id 
+     * @param {Number} create 1: new_id, 0: max_id
+     */
+    getClipPath(id, create=false) {
+      let clipIdPath = 'tmp/clip-id'
+      id = Number.isNaN(id)? 0 : id
+
+      if (!Number.isInteger(id)) {
+        if (fs.existsSync(clipIdPath)) {
+          id = +fs.readFileSync(clipIdPath, 'utf8')
+        } else {
+          id = 0
+        }
+        if(create){
+          id += 1
+          fs.writeFileSync(clipIdPath, id)
+        }
+      }
+      id = id % 8
+      return  [`tmp/clip-${id}`, id]
     }
   }
