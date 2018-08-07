@@ -38,7 +38,7 @@ module.exports =
           while ((part = await parts()) != null) {
             if (part.length) {
             } else if (part.filename) {
-              const tmpFile = tmp.fileSync({prefix: 'eggjs-'})
+              const tmpFile = tmp.fileSync({prefix: 'eggjs-upload-'})
               const ws = fs.createWriteStream(null, {fd:tmpFile.fd})
               part.pipe(ws)
               part.path = tmpFile.name
