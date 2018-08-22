@@ -2,7 +2,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://unpkg.com/vue@2.5.17/dist/vue.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css">
     <title></title>
     {% block style %}{% endblock %}
 </head>
@@ -10,8 +10,8 @@
 <body>
     <div style=" background:#363636; height: 50px; ">
         <div style="padding-top:10px;color:white;text-align: center">
-            <a class="button is-dark" href="/usersub/get">我的订阅</a>
-            <a class="button is-dark" href="/usersub/edit">添加订阅</a>
+            <a class="pure-button is-dark" href="/usersub/get">我的订阅</a>
+            <a class="pure-button is-dark" href="/usersub/edit">添加订阅</a>
         </div>
     </div>
     {% block app %}{% endblock %}
