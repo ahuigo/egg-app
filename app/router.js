@@ -8,4 +8,7 @@ module.exports = app => {
   router.post('/api/clipboard/header', controller.api.clipboard.header);
   router.post('/api/clipboard/uploadFile', controller.api.clipboard.uploadFile);
   router.resources('clip','/api/clipboard', controller.api.clipboard);
+
+  router.resources('word','/api/word', controller.api.word);
+  router.get('/api/word/getWord', controller.api.word.getWord);
 };

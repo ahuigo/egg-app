@@ -1,3 +1,6 @@
 [submodule "vue"]
 	path = vue
 	url = https://git.coding.net/hilojack/my-rollup-issue.git
+[submodule "vue2"]
+	path = vue2
+	url = https://coding.net/u/hilojack/p/my-rollup-issue/git

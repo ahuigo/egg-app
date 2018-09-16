@@ -6,12 +6,17 @@ module.exports =
   class WordController extends BaseController {
     async index() {
       await this.show()
+      //var res = ({ oss: [ctx.oss], files: files, fields: fields, root: APP_ROOT, body: ctx.request.body, query: ctx.query, 'x-requested-with': ctx.get('x-requested-with') })
     }
     async getWord() {
       let ctx = this.ctx
-      let id = this.ctx.params.id ? +this.ctx.params.id : undefined;
-      var res = ({ oss: [ctx.oss], files: files, fields: fields, root: APP_ROOT, body: ctx.request.body, query: ctx.query, 'x-requested-with': ctx.get('x-requested-with') })
-      this.rest({ content: res, path: clipPath })
+      let word = this.ctx.query.word;
+      if(!word){
+        this.throw('Require params: word')
+      }
+      
+      let trans = await ctx.service.words.getWord(word)
+      this.rest({ trans})
     }
 
     /**

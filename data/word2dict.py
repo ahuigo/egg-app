@@ -79,4 +79,5 @@ for line in Path('words.txt').open():
 
 for word in words[4659:]:
     print('%s`%s' %( word, trans_bd(word)))
+    quit(1)
 

@@ -4,3 +4,7 @@ logs
 run
 coverage
 tmp
+.DS_Store
+data/coca.sqlite
+data/tts/
+vuec

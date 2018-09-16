@@ -35,3 +35,20 @@ function accepts(ctx) {
   if (ctx.get('x-requested-with') === 'XMLHttpRequest') return 'json';
   return 'html';
 }*/
+
+/**
+ * sqlite
+ */
+exports.sequelize = {
+  dialect: 'sqlite', // support: mysql, mariadb, postgres, mssql
+  storage: './data/coca.sqlite',
+  database: 'test',
+  host: 'localhost',
+  port: '3306',
+  username: 'root',
+  password: '',
+  // delegate: 'myModel', // load all models to `app[delegate]` and `ctx[delegate]`, default to `model`
+  // baseDir: 'my_model', // load all files in `app/${baseDir}` as models, default to `model`
+  // exclude: 'index.js', // ignore `app/${baseDir}/index.js` when load models, support glob and array
+  // more sequelize options
+};
