@@ -1,18 +1,6 @@
-node_modules
-logs
-.vscode
-run
-coverage
-tmp
 .DS_Store
-data/coca.sqlite
-data/tts/
-
-
-.DS_Store
-.git
 node_modules
-vuec/dist
+/dist
 
 # local env files
 .env.local
@@ -31,4 +19,3 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw*
-
