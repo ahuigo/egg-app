@@ -5,6 +5,7 @@ module.exports = app => {
   const Words = app.model.define('words', {
     word:  { type: Sequelize.STRING, unique: true },
     mean: STRING(500),
+    affix: STRING(500),
     en_phonic: STRING(32),
     us_phonic: STRING(32),
   });
@@ -13,13 +14,15 @@ module.exports = app => {
     return await this.findOne({
       where: {
         word:w
-      }
-    });
+      },
+      raw: true,
+    })
   }
   Words.createWord = async function(trans){
     this.create({ 
       word: trans.word,
       mean:trans.mean,
+      affix: trans.affix,
       en_phonic:trans.en_phonic,
       us_phonic:trans.us_phonic,
     })

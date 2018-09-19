@@ -16,6 +16,7 @@
     "egg-onerror": "^2.1.0",
     "egg-sequelize": "^4.1.0",
     "egg-view-nunjucks": "^2.2.0",
+    "node-html-parser": "^1.1.10",
     "sequelize": "^4.38.0",
     "sequelize-cli": "^4.1.1",
     "sqlite3": "^4.0.2",

@@ -21,6 +21,10 @@ var config = {
 for (let [key, value] of Object.entries(config)) {
   exports[key] = value;
 }
+
+exports.static= {
+  dir: 'vuec/dist',//path.join(appInfo.baseDir, 'app/public')
+}
 exports.logger = {
   consoleLevel: 'INFO', //默认
   consoleLevel: 'DEBUG',
