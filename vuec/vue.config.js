@@ -5,7 +5,8 @@ module.exports = {
     configureWebpack: {
         devtool: 'source-map',
         externals: {
-            'vuePlugin':'vuePlugin',
+            'Dexie':'Dexie',
+            'console':'console',
         },
     },
 }

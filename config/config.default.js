@@ -23,7 +23,7 @@ for (let [key, value] of Object.entries(config)) {
 }
 
 exports.static= {
-  dir: 'vuec/dist',//path.join(appInfo.baseDir, 'app/public')
+  dir: ['vuec/dist', 'vuec/extra'],//path.join(appInfo.baseDir, 'app/public')
 }
 exports.logger = {
   consoleLevel: 'INFO', //默认

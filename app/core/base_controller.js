@@ -1,6 +1,4 @@
 // app/core/base_controller.js
-const tmp = require('tmp')
-const fs = require('fs')
 const app = require('egg');
 
 module.exports =
@@ -24,6 +22,8 @@ module.exports =
 
 
     async multipart() {
+      const tmp = require('tmp')
+      const fs = require('fs')
       const ctx = this.ctx
       const files = [];
       ctx.files = files
@@ -33,7 +33,9 @@ module.exports =
           // const file = await ctx.getFileStream()
           // files.push(file);
           // fields = stream.fields;
-          const sendToWormhole = require('stream-wormhole');
+          // const sendToWormhole = require('stream-wormhole');
+          // let result = await ctx.oss.put('egg-multipart-test/' + part.filename, part);
+          // await sendToWormhole(part);
           const parts = ctx.multipart({ autoFields: true });
           while ((part = await parts()) != null) {
             if (part.length) {
@@ -44,8 +46,6 @@ module.exports =
               part.path = tmpFile.name
               part.fd = tmpFile.fd
               files.push(part)
-              //let result = await ctx.oss.put('egg-multipart-test/' + part.filename, part);
-              //await sendToWormhole(part);
             }
           }
           fields = parts.field

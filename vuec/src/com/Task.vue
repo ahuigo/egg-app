@@ -17,7 +17,6 @@ export default {
     tasklist: Array
   },
   created(){
-      var a=1;
   }
 }
 </script>

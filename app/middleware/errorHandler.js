@@ -2,8 +2,8 @@
 const fs = require('fs')
 function clean_tmp(app, ctx) {
   if (ctx.files && ctx.files.length) {
-    for(let file of ctx.files){
-      if(file.path && fs.existsSync(file.path)){
+    for (let file of ctx.files) {
+      if (file.path && fs.existsSync(file.path)) {
         fs.unlinkSync(file.path)
       }
     }

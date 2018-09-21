@@ -3,6 +3,7 @@
       <div id="menu">
           <a href="#/task">背诵</a>
           <a href="#/tasks">计划表</a>
+          <a href="#/dict">查词</a>
       </div>
     <!-- <Page :tasklist="['coca']"/> -->
     <div>
@@ -17,11 +18,13 @@ Vue.use(Router)
 
 import Tasks from "./com/Tasks.vue";
 import Task from "./com/Task.vue";
+import Dict from "./com/Dict.vue";
 const router = new Router({
     routes: [
     { path: "/tasks", component: Tasks },
     { path: "/", component: Task },
     { path: "/task", component: Task },
+    { path: "/dict", component: Dict},
     ]
 });
 

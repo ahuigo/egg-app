@@ -16,7 +16,7 @@ module.exports =
       }
       
       let trans = await ctx.service.words.getWord(word)
-      this.rest({ trans})
+      this.rest(trans)
     }
 
     /**
