@@ -18,6 +18,27 @@ var config = {
   },
 };
 
+//support raw text
+const bodyParserConfig = {
+  enable: true,
+  encoding: 'utf8',
+  formLimit: '100kb',
+  jsonLimit: '100kb',
+  strict: true,
+  // @see https://github.com/hapijs/qs/blob/master/lib/parse.js#L8 for more options
+  queryString: {
+    arrayLimit: 100,
+    depth: 5,
+    parameterLimit: 1000,
+  },
+  enableTypes: ['json', 'form', 'text'],
+  extendTypes: {
+    text: ['text/xml', 'application/xml'],
+  },
+};
+// 覆盖egg自带的配置
+config.bodyParser = bodyParserConfig;
+
 for (let [key, value] of Object.entries(config)) {
   exports[key] = value;
 }

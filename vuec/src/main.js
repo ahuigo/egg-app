@@ -4,14 +4,14 @@ Vue.config.productionTip = false
 Vue.config.debug = true;
 Vue.config.devtools = true;
 
-window.loadScript = function(url){
+window.loadJs = function(key, url){
   return new Promise((resolve, reject)=>{
-    if(window.loadScript.init){
-      resolve(window.Dexie)
+    if(window[key]){
+      resolve(window[key])
     }
     let script = document.createElement('script')
     script.src = url;
-    script.onload = resolve.bind(this, this.Dexie);
+    script.onload = ()=>resolve(window[key]);
     script.onerror= reject;
     window.document.head.append(script);
   });

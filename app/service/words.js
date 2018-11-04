@@ -16,12 +16,22 @@ module.exports =
         }
       }
     }
+
+    /**
+     * getAffix 词根词缀
+     * @param {*} word 
+     */
     getAffix(word) {
       let html = require('node-html-parser');
       let url = `http://www.youdict.com/search?word=${word}`;
       let root = html.parse(execSync(`wget '${url}' -O - `).toString());
       return (root.querySelector('#yd-ciyuan.row') || { text: 'no' }).text
     }
+
+    /**
+     * getWord 查词
+     * @param {*} word 
+     */
     async getWord(word) {
       word = encodeURIComponent(word)
       r = await this.app.model.Words.findWord(word)

@@ -8,7 +8,17 @@ module.exports =
       const ctx = this.ctx;
       // return this.rest([this.ctx.get('Content-Type'), APP_ROOT])
       const [files, fields] = await this.multipart();
-      var res = ({ oss: [ctx.oss], files: files, fields: fields, root: APP_ROOT, body: ctx.request.body, query: ctx.query, 'x-requested-with': ctx.get('x-requested-with') })
+      var res = ({
+          'x-requested-with': ctx.get('x-requested-with'),
+          'content-type': ctx.get('content-type'),
+          query: ctx.query, 
+          fields: fields,
+          body: ctx.request.body, 
+          rawBody: [ctx.request.rawBody],
+          files: files,
+          root: APP_ROOT, 
+          oss: [ctx.oss],
+      })
       this.rest(res)
     }
     async index() {
