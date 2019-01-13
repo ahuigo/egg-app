@@ -1044,7 +1044,8 @@
   ],
   entry: {
     app: [
-      './src/main.js'
+      './src/main.js',
+      './src/ski-coach'
     ]
   },
   externals: {

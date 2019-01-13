@@ -48,7 +48,7 @@ module.exports =
       }
 
       var chunkStat = fs.statSync(uploadPath)
-      if (1 || chunkStat.size < ctx.query.size && chunkStat.size === +ctx.query.start) {
+      if (chunkStat.size < ctx.query.size && chunkStat.size === +ctx.query.start) {
         const rs = await this.ctx.getFileStream()
         const ws = fs.createWriteStream(uploadPath, { flags: 'a' })
         const bytesRead = await new Promise((resolve, reject) => {
